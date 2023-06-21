@@ -25,7 +25,7 @@ const LoginAuth = () => {
         history.push("/");
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
       });
   };
 
@@ -35,7 +35,7 @@ const LoginAuth = () => {
         <Box className="formContainer">
           <label className="label">Email</label>
           <input
-          placeholder="Email..."
+            placeholder="Email..."
             type="email"
             name="email"
             value={values.email}
@@ -47,7 +47,7 @@ const LoginAuth = () => {
           <br />
           <label className="label">Password</label>
           <input
-          placeholder="Password..."
+            placeholder="Password..."
             type="password"
             name="password"
             value={values.password}
@@ -62,37 +62,48 @@ const LoginAuth = () => {
         </button>
       </form>
 
-      <Box className="forgotPassword">
-        <p>Forgot Your Password ?</p>
-        <Link to='forgotPassword'>
-        <p
-          style={{
-            marginLeft: "5px",
-            textDecoration: "underline",
-            fontWeight: "lighter",
-            fontSize: "13px",
-            cursor: "pointer",
-          }}
-        >
-          recover
-        </p>
-        </Link>
-      </Box>
-      <Box className="donthaveaccount">
-        <p>Dont have a TrackFit account ?</p>
-        <Link to="signup">
-          <p
-            style={{
-              marginLeft: "5px",
-              textDecoration: "underline",
-              fontWeight: "lighter",
-              fontSize: "13px",
-              cursor: "pointer",
-            }}
-          >
-            SIGNUP
-          </p>
-        </Link>
+      <Box
+        sx={{
+          height: "50px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexDirection: "column",
+          width:"100%",
+        }}
+      >
+        <Box className="forgotPassword">
+          <p>Forgot Your Password ?</p>
+          <Link to="forgotPassword">
+            <p
+              style={{
+                marginLeft: "5px",
+                textDecoration: "underline",
+                fontWeight: "lighter",
+                fontSize: "13px",
+                cursor: "pointer",
+              }}
+            >
+              recover
+            </p>
+          </Link>
+        </Box>
+        <Box className="donthaveaccount">
+          <p>Dont have a TrackFit account ?</p>
+          <Link to="signup">
+            <p
+              style={{
+                marginLeft: "5px",
+                textDecoration: "underline",
+                fontWeight: "lighter",
+                fontSize: "13px",
+                cursor: "pointer",
+              }}
+            >
+              SIGNUP
+            </p>
+          </Link>
+        </Box>
       </Box>
 
       <Box className="signupText">
