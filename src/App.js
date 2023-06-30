@@ -8,6 +8,7 @@ import Progress from "./Progress";
 import Home from "./Home";
 import Navbar from "./components/Navbar/Navbar";
 import RecoverPassword from "./RecoverPassword";
+import NewTask from "./NewTask";
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route path="/forgotPassword">
             <RecoverPassword/>
+          </Route>
+          <Route path="/createTask">
+            <NewTask/>
           </Route>
         </Switch>
       </div>
