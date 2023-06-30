@@ -1,9 +1,98 @@
-import React from 'react'
+import React, { useContext, useState } from "react";
+import Drawer from "../SideDrawer/Drawer";
+import { Box } from "@mui/material";
+import "./Progress.css";
+import { AuthContext } from "../context/AuthContext";
+import { query, collection, onSnapshot } from "firebase/firestore";
+import { db } from "../../config/firebase";
 
-const ProgressPage = () => {
+const Progress = () => {
+  const { createField, setCreateField, user, newHour, newMinute, newSeconds, running } = useContext(AuthContext);
+
+  console.log(newHour, newMinute, newSeconds, "Lapping Time")
+
+  React.useEffect(() => {
+    const q = query(collection(db, `${user.uid}`));
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      let fieldArray = [];
+      querySnapshot.forEach((doc) => {
+        fieldArray.push({ ...doc.data(), id:doc.id });
+      });
+      setCreateField(fieldArray);
+    });
+    return () => unsub();
+  }, []);
+
   return (
-    <div>ProgressPage</div>
-  )
-}
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        background: "rgba(0,0,0,0.5)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
+      <Drawer />
+      <Box className="BackgroundImage">
+        <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            background: "rgba(0,0,0,0.5)",
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
 
-export default ProgressPage
+          <Box className="progressTasksFieldContainer">
+            {createField.map((field, index) => {
+              return (
+                <Box key={index}>
+                  <Box className="progressFieldCard">
+                    <Box
+                      sx={{
+                        display: "flex",
+                        width: "80%",
+                        alignItems: "center",
+                        justifyContent: "space-evenly",
+                        marginLeft: "30px",
+                      }}
+                    >
+                      <Box className="fieldName">{field.name}</Box>
+                    </Box>
+
+                    <Box className="progressField">
+                    <p style={{fontWeight:"bold", marginLeft:"-15px", textTransform:"uppercase"}}>{`${field.author}'s`} TASK</p>
+
+                    
+                        {running ? (
+                           <Box sx={{fontWeight:"bold",paddingRight:"15px", fontFamily:"sans-serif", fontSize:"20px"}}>
+                           {newHour}:{newMinute}:{newSeconds}
+                           </Box>
+                          )
+                        :
+                        (
+                          
+                          <Box sx={{fontWeight:"bold",paddingRight:"15px", fontFamily:"sans-serif", fontSize:"20px"}}>
+                          {field.hours}:{field.minutes}:{field.seconds}
+                          </Box>
+                        )
+                      }
+
+                        <p>{}</p>
+                    </Box>
+                  </Box>
+                </Box>
+              );
+            })}
+          </Box>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
+export default Progress;

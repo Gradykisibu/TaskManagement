@@ -1,0 +1,86 @@
+.BackgroundImage{
+    height: 100%;
+    background-image: url('https://i.pinimg.com/originals/3d/b1/39/3db1396112d76a7dd49bd11eaf67f52f.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: hidden;
+    width: 80%;
+  }
+  
+  .createFieldText{
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: black;
+      margin-top: 20px;
+      color: #551a8b;
+      cursor: pointer;
+  }
+  
+  .progressTasksFieldContainer{
+    width: 95%;
+    height: 100vh;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+    padding: 20px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-bottom: 30px;
+    overflow-y: auto;
+  }
+  
+  .progressFieldCard{
+    width: 600px;
+    height: auto;
+    border-radius: 5px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /* padding-top: 10px; */
+    padding: 10px;
+    margin: 2px;
+  }
+  
+  .fieldName{
+    color: black;
+    background-color: #551a8b;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 15px;
+    width: 200px;
+    border-radius: 10px;
+  }
+  
+  .addTaskButton{
+    border: none;
+    margin-top: 10px;
+    width: 100px;
+    cursor: pointer;
+    background-color: #551a8b;
+    font-weight: bold;
+    text-transform: uppercase; 
+    margin-right: 30px;
+  }
+  
+  .progressField{
+    width: 90%;
+    height:auto;
+    margin-top: 10px;
+    color: #551a8b;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-family: monospace;
+    border-radius: 5px;
+    border: 1px solid #551a8b;
+    padding: 10px;
+    padding-right: 10px;
+  }

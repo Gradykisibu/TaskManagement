@@ -1,14 +1,14 @@
 import React, { useContext, useState } from "react";
 import "./Auth.css";
 import { Box } from "@mui/material";
-import { AuthContext } from "../context/AuthContext";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { addDoc, collection, setDoc } from "firebase/firestore";
+import { db } from "../../config/firebase";
 
 const SignupAuth = () => {
-  const { setUser } = useContext(AuthContext);
   let history = useHistory();
   const [values, setValues] = useState({
     email: "",
@@ -20,12 +20,20 @@ const SignupAuth = () => {
     e.preventDefault();
     setLoading(true);
     createUserWithEmailAndPassword(auth, values.email, values.password)
-      .then((userCredential) => {
-        setUser(userCredential.user);
+      .then(async (res) => {
+        const user = res.user;
+        console.log(user);
+
+        await addDoc(collection(db, "users").setDoc(res.user.uid),{
+          uid: user.uid,
+          email: user.email,
+        });
+
         history.push("/");
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
+        setLoading(false);
       });
   };
 

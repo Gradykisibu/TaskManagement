@@ -35,8 +35,8 @@ const handleLogin = () => {
           <Link to="/" className="AnchorLink">
             <p className="bannerLink">HOME</p>
           </Link>
-          <Link to="tasks" className="AnchorLink">
-            <p className="bannerLink">TASKS</p>
+          <Link to="createTask" className="AnchorLink">
+            <p className="bannerLink">CREATE TASK</p>
           </Link>
           <Link to="progress" className="AnchorLink">
             <p className="bannerLink">PROGRESS</p>

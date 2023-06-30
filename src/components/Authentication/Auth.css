@@ -95,6 +95,8 @@
     }
     .signupContainer{
         width: 80%;
+        height: 70vh;
+        margin-top: -60px;
     }
 
     .input{

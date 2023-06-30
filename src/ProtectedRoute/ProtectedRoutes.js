@@ -6,7 +6,7 @@ const ProtectedRoutes = ({ children }) => {
     let history = useHistory();
     const { user } = useContext(AuthContext);
 
-    if(user == null){
+    if(!user){
      history.push('/signup')
     }
   return children;

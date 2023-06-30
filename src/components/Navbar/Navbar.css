@@ -48,12 +48,37 @@
     height: 60px;
 }
 
-@media only screen and (max-width:576px){
-    .NavbarLinks{
+@media only screen and (max-width:886px){
+    /* .NavbarLinks{
         display: none;
-    }
+    } */
     .logo{
         width: 120px;
         height: 60px;
     }
+    /* .loginLogout{
+        display: none;
+    } */
+
 }
+
+@media only screen and (min-width:887px){
+
+    /* .loginLogout{
+        display: block;
+        border: 1px solid #551A8B;
+        width: 100px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        cursor: pointer;
+        font-weight: lighter;
+        color: #551A8B;
+    } */
+    .BasicMenu{
+        display: none;
+    }
+}
+

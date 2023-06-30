@@ -1,14 +1,13 @@
 import React, { useContext, useState } from "react";
 import "./Auth.css";
 import { Box } from "@mui/material";
-import { AuthContext } from "../context/AuthContext";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const LoginAuth = () => {
-  const { setUser } = useContext(AuthContext);
+
   let history = useHistory();
   const [values, setValues] = useState({
     email: "",
@@ -20,12 +19,14 @@ const LoginAuth = () => {
     e.preventDefault();
     setLoading(true);
     signInWithEmailAndPassword(auth, values.email, values.password)
-      .then((userCredential) => {
-        setUser(userCredential.user);
+      .then(async(res) => {
+        const user = res.user;
+        console.log(user)
         history.push("/");
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
       });
   };
 
@@ -35,6 +36,7 @@ const LoginAuth = () => {
         <Box className="formContainer">
           <label className="label">Email</label>
           <input
+          required
             placeholder="Email..."
             type="email"
             name="email"
@@ -47,6 +49,7 @@ const LoginAuth = () => {
           <br />
           <label className="label">Password</label>
           <input
+          required
             placeholder="Password..."
             type="password"
             name="password"
@@ -64,12 +67,13 @@ const LoginAuth = () => {
 
       <Box
         sx={{
-          height: "50px",
+          height: "80px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           flexDirection: "column",
-          width:"100%",
+          width: "100%",
+          marginBottom: "-50px",
         }}
       >
         <Box className="forgotPassword">
