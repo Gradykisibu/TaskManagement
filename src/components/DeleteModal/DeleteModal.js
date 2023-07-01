@@ -39,9 +39,8 @@ export default function DeleteModal(field) {
 
   const deleteBooking = async () => {
     await deleteDoc(doc(db, `${user.uid}`,id))
+    handleClose();
   }
-
-
 
   return (
     <div>

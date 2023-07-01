@@ -76,7 +76,7 @@ const LoginAuth = () => {
           marginBottom: "-50px",
         }}
       >
-        <Box className="forgotPassword">
+        <Box sx={{mt:"-10px"}} className="forgotPassword">
           <p>Forgot Your Password ?</p>
           <Link to="forgotPassword">
             <p
@@ -92,7 +92,7 @@ const LoginAuth = () => {
             </p>
           </Link>
         </Box>
-        <Box className="donthaveaccount">
+        <Box sx={{mb:"10px"}} className="donthaveaccount">
           <p>Dont have a TrackFit account ?</p>
           <Link to="signup">
             <p

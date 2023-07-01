@@ -5,6 +5,12 @@ import ProtectedRoutes from './ProtectedRoute/ProtectedRoutes'
 import './App.css'
 
 const NewTask = () => {
+
+  React.useEffect(() => {
+    document.title = "TrackFit | Create Task"
+ }, []);
+
+
   return (
     <Box className="HomeBackgroundImage">
         <ProtectedRoutes>

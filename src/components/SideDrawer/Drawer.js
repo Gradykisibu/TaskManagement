@@ -12,7 +12,7 @@ const Drawer = () => {
     <Box className="DrawerContainer">
       <Box className="initial">
         <Box  className="initialBorder">
-      {initial[0]}
+      {/* {initial[0]} */}
         </Box>
       </Box>
       <Box className="initalName">{initial}</Box>

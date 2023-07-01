@@ -16,6 +16,7 @@ import {
 import { db } from "../../config/firebase";
 import RunTimeModal from "../RunTimeModal/RunTimeModal";
 import CreateTaskModal from "../CreateTaskModal/CreateTaskModal";
+<title>hello</title>
 
 const CreateTask = () => {
   const {
@@ -24,7 +25,7 @@ const CreateTask = () => {
     user,
     running,
   } = useContext(AuthContext);
-
+  
   React.useEffect(() => {
     const q = query(collection(db, `${user.uid}`));
     const unsub = onSnapshot(q, (querySnapshot) => {

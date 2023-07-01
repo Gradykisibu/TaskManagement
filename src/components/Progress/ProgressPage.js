@@ -7,16 +7,24 @@ import { query, collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
 const Progress = () => {
-  const { createField, setCreateField, user, newHour, newMinute, newSeconds, running } = useContext(AuthContext);
+  const {
+    createField,
+    setCreateField,
+    user,
+    newHour,
+    newMinute,
+    newSeconds,
+    running,
+  } = useContext(AuthContext);
 
-  console.log(newHour, newMinute, newSeconds, "Lapping Time")
+  console.log(newHour, newMinute, newSeconds, "Lapping Time");
 
   React.useEffect(() => {
     const q = query(collection(db, `${user.uid}`));
     const unsub = onSnapshot(q, (querySnapshot) => {
       let fieldArray = [];
       querySnapshot.forEach((doc) => {
-        fieldArray.push({ ...doc.data(), id:doc.id });
+        fieldArray.push({ ...doc.data(), id: doc.id });
       });
       setCreateField(fieldArray);
     });
@@ -46,7 +54,6 @@ const Progress = () => {
             flexDirection: "column",
           }}
         >
-
           <Box className="progressTasksFieldContainer">
             {createField.map((field, index) => {
               return (
@@ -65,24 +72,26 @@ const Progress = () => {
                     </Box>
 
                     <Box className="progressField">
-                    <p style={{fontWeight:"bold", marginLeft:"-15px", textTransform:"uppercase"}}>{`${field.author}'s`} TASK</p>
-
-                    
-                        {running ? (
-                           <Box sx={{fontWeight:"bold",paddingRight:"15px", fontFamily:"sans-serif", fontSize:"20px"}}>
-                           {newHour}:{newMinute}:{newSeconds}
-                           </Box>
-                          )
-                        :
-                        (
-                          
-                          <Box sx={{fontWeight:"bold",paddingRight:"15px", fontFamily:"sans-serif", fontSize:"20px"}}>
-                          {field.hours}:{field.minutes}:{field.seconds}
-                          </Box>
-                        )
-                      }
-
-                        <p>{}</p>
+                      {field.hours == "00" &&
+                      field.minutes == "00" &&
+                      field.seconds == "0" ? (
+                        <p style={{ color: "green" }}>
+                          CONGRATULATIONS TASK COMPLETED
+                        </p>
+                      ) : (
+                        <p style={{ color: "red" }}>REMAINING TIME</p>
+                      )}
+                      <Box
+                        sx={{
+                          fontWeight: "bold",
+                          paddingRight: "15px",
+                          fontFamily: "sans-serif",
+                          fontSize: "20px",
+                        }}
+                      >
+                        {field.hours}:{field.minutes}:{field.seconds}:
+                        {field.mseconds}
+                      </Box>
                     </Box>
                   </Box>
                 </Box>

@@ -5,6 +5,11 @@ import { Box } from '@mui/material'
 import './App.css'
 
 const Progress = () => {
+
+  React.useEffect(() => {
+    document.title = "TrackFit | Progress"
+ }, []);
+
   return (
     <Box className="HomeBackgroundImage">
       <ProtectedRoutes>
