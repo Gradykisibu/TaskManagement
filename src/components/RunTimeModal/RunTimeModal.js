@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import "./AddTaskModal.css";
@@ -6,8 +6,8 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
 import { db } from "../../config/firebase";
-import { useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const style = {
   position: "absolute",
@@ -23,40 +23,35 @@ const style = {
 };
 
 export default function RunTimeModal({ time }) {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-
-  const handleClose = () => {
-    setOpen(false)
-   setRunning(null)
+  let history = useHistory();
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-  const {
-    setNewHour,
-    setNewMinute,
-    setNewSeconds,
-    running,
-    setRunning,
-    user,
-  } = useContext(AuthContext);
+  const { setNewHour, setNewMinute, setNewSeconds, running, setRunning, user } =
+    useContext(AuthContext);
 
   let hour = time.hours;
   let minute = time.minutes;
   let second = time.seconds;
-  let mseconds = time.mseconds
+  let mseconds = time.mseconds;
 
   const [hours, setHours] = useState(hour);
   const [minutes, setMinutes] = useState(minute);
   const [seconds, setSeconds] = useState(second);
-  const [ milliSeconds, setMilliSeconds ] = useState(mseconds)
-
+  const [milliSeconds, setMilliSeconds] = useState(mseconds);
 
   useEffect(() => {
     let interval;
     if (running) {
       interval = setInterval(() => {
-        if(milliSeconds > 0){
+        if (milliSeconds > 0) {
           setMilliSeconds((milliSeconds) => milliSeconds - 1);
         } else if (seconds > 0) {
           setSeconds((seconds) => seconds - 1);
@@ -64,27 +59,27 @@ export default function RunTimeModal({ time }) {
         } else if (minutes > 0) {
           setMinutes((minutes) => minutes - 1);
           setSeconds(59);
-          setMilliSeconds(59)
+          setMilliSeconds(59);
         } else if (hours > 0) {
           setHours((hours) => hours - 1);
           setSeconds(59);
           setMinutes(59);
-          setMilliSeconds(59)
+          setMilliSeconds(59);
         }
       }, 10);
     }
     return () => clearInterval(interval);
   }, [milliSeconds, seconds, minutes, hours, running]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setNewHour(hours);
     setNewMinute(minutes);
     setNewSeconds(seconds);
-  })
+  });
 
   //Start Time Function
   const handlStartTime = () => {
-    if (hours !== 0 || minutes !== 0 || seconds !== 0 ||  milliSeconds !== 0) {
+    if (hours !== 0 || minutes !== 0 || seconds !== 0 || milliSeconds !== 0) {
       setRunning(true);
     } else {
       alert("No Time Available");
@@ -97,8 +92,15 @@ export default function RunTimeModal({ time }) {
     handleUpdateDocument();
   };
 
+  const handleSave = () => {
+    setLoading(true);
+    handleUpdateDocument();
+    setTimeout(() => {
+      history.push("/progress");
+    }, 5000);
+  };
 
-  const id = time.id
+  const id = time.id;
   const handleUpdateDocument = () => {
     const documentRef = doc(db, `${user.uid}`, id);
     const updatedData = {
@@ -110,20 +112,19 @@ export default function RunTimeModal({ time }) {
       minutes: minutes,
       seconds: seconds,
       mseconds: milliSeconds,
-      // Add more fields and their updated values
     };
-  
+
     updateDocument(documentRef, updatedData);
   };
 
-const updateDocument = async (documentRef, updatedData) => {
-  try {
-    await setDoc(documentRef, updatedData);
-    console.log('Document successfully updated!');
-  } catch (error) {
-    console.error('Error updating document: ', error);
-  }
-};
+  const updateDocument = async (documentRef, updatedData) => {
+    try {
+      await setDoc(documentRef, updatedData);
+      console.log("Document successfully updated!");
+    } catch (error) {
+      console.error("Error updating document: ", error);
+    }
+  };
 
   return (
     <div>
@@ -166,6 +167,13 @@ const updateDocument = async (documentRef, updatedData) => {
             >
               <button className="timebutton" onClick={handlePauseTime}>
                 STOP
+              </button>
+              <button
+                disabled={loading}
+                className="timebutton"
+                onClick={handleSave}
+              >
+                {loading ? "SAVING..." : "SAVE"}
               </button>
               <button className="timebutton" onClick={handlStartTime}>
                 START
