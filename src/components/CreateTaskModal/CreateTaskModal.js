@@ -81,7 +81,7 @@ export default function CreateTaskModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen} sx={{ color: "#551a8b", display: "flex" }}>
+      <Button onClick={handleOpen} sx={{ color: "#551a8b", display: "flex", height:"40px" }}>
         <CreateIcon  fontSize="small"/>
         <p style={{ marginLeft:"5px"}}>Create Task</p>
       </Button>

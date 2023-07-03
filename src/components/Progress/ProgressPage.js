@@ -103,6 +103,8 @@ const Progress = () => {
             <input type="text" onChange={(e) => setSearchTerm(e.target.value)} placeholder="Search #Tags" className="progressInput" />
           </Box>
 
+          
+
           <Box className="progressTasksFieldContainer">
             {createField.filter((field) => {
               if(searchTerm == ""){

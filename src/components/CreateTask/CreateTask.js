@@ -28,6 +28,9 @@ const CreateTask = () => {
     return () => unsub();
   }, []);
 
+ let ArrLength = createField.length
+ console.log(ArrLength)
+
   return (
     <Box
       sx={{
@@ -56,110 +59,130 @@ const CreateTask = () => {
               <CreateTaskModal />
             </p>
           </Box>
-
-          <Box className="createdTasksFieldContainer">
-            {createField.map((field, index) => {
+          {
+            ArrLength == 0 ? (
+            <Box sx={{
+              width:"70%", 
+              height:"100vh",
+              display:"flex",
+              alignItems:"center",
+              justifyContent:"center",
+              color:"#551a8b",
+              fontWeight:"bold",
+            }}>
+              <h1>
+                No Task Has Been Created...
+              </h1>
+            </Box>
+            )
+            :
+            (
+            <Box className="createdTasksFieldContainer">
+              {createField.map((field, index) => {
               return (
-                <Box key={index}>
-                  <Box className="createdFieldCard">
+              <Box key={index}>
+                <Box className="createdFieldCard">
+                  <Box
+                    sx={{
+                      display: "flex",
+                      width: "80%",
+                      alignItems: "center",
+                      justifyContent: "space-evenly",
+                      marginLeft: "30px",
+                    }}
+                  >
+                    <Box className="fieldName">{field.name}</Box>
+                    <BasicMenu field={field} />
+                  </Box>
+
+                  {(field.hours == "00" &&
+                    field.minutes == "00" &&
+                    field.seconds == "0" &&
+                    field.mseconds == "0") ||
+                  (field.hours == "00" &&
+                    field.minutes == "00" &&
+                    field.seconds == "00" &&
+                    field.mseconds == "00") ? (
                     <Box
                       sx={{
-                        display: "flex",
-                        width: "80%",
-                        alignItems: "center",
-                        justifyContent: "space-evenly",
-                        marginLeft: "30px",
+                        backgroundImage: `url("https://img1.picmix.com/output/stamp/normal/7/4/3/4/534347_0e653.gif")`,
                       }}
+                      className="TaskField"
                     >
-                      <Box className="fieldName">{field.name}</Box>
-                      <BasicMenu field={field} />
-                    </Box>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          marginLeft: "-15px",
+                          textTransform: "uppercase",
+                          color: "transparent",
+                        }}
+                      >
+                        {field.author}
+                      </p>
 
-                    {(field.hours == "00" &&
-                      field.minutes == "00" &&
-                      field.seconds == "0" &&
-                      field.mseconds == "0") ||
-                    (field.hours == "00" &&
-                      field.minutes == "00" &&
-                      field.seconds == "00" &&
-                      field.mseconds == "00") ? (
                       <Box
                         sx={{
-                          backgroundImage: `url("https://img1.picmix.com/output/stamp/normal/7/4/3/4/534347_0e653.gif")`,
+                          fontWeight: "bold",
+                          paddingRight: "15px",
+                          fontFamily: "sans-serif",
+                          fontSize: "20px",
+                          color: "green",
                         }}
-                        className="TaskField"
                       >
-                        <p
-                          style={{
-                            fontWeight: "bold",
-                            marginLeft: "-15px",
-                            textTransform: "uppercase",
-                            color: "transparent",
-                          }}
-                        >
-                          {field.author}
-                        </p>
-
-                        <Box
-                          sx={{
-                            fontWeight: "bold",
-                            paddingRight: "15px",
-                            fontFamily: "sans-serif",
-                            fontSize: "20px",
-                            color: "green",
-                          }}
-                        >
-                          <p>COMPLETED</p>
-                        </Box>
-
-                        <p
-                          style={{
-                            fontWeight: "lighter",
-                            color: "transparent",
-                          }}
-                        >
-                          {field.content}
-                        </p>
+                        <p>COMPLETED</p>
                       </Box>
-                    ) : (
-                      <Box className="TaskField">
-                        <p
-                          style={{
-                            fontWeight: "bold",
-                            marginLeft: "-15px",
-                            textTransform: "uppercase",
-                          }}
-                        >
-                          {field.author}
-                        </p>
 
-                        <Box
-                          sx={{
-                            fontWeight: "bold",
-                            paddingRight: "15px",
-                            fontFamily: "sans-serif",
-                            fontSize: "20px",
-                          }}
-                        >
-                          <p>
-                            {" "}
-                            {field.hours}:{field.minutes}:{field.seconds}:
-                            {field.mseconds}
-                          </p>
-                        </Box>
-
-                        <p style={{ fontWeight: "lighter" }}>{field.content}</p>
-                      </Box>
-                    )}
-
-                    <Box sx={{ width: "100%" }}>
-                      <RunTimeModal time={field} />
+                      <p
+                        style={{
+                          fontWeight: "lighter",
+                          color: "transparent",
+                        }}
+                      >
+                        {field.content}
+                      </p>
                     </Box>
+                  ) : (
+                    <Box className="TaskField">
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          marginLeft: "-15px",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {field.author}
+                      </p>
+
+                      <Box
+                        sx={{
+                          fontWeight: "bold",
+                          paddingRight: "15px",
+                          fontFamily: "sans-serif",
+                          fontSize: "20px",
+                        }}
+                      >
+                        <p>
+                          {" "}
+                          {field.hours}:{field.minutes}:{field.seconds}:
+                          {field.mseconds}
+                        </p>
+                      </Box>
+
+                      <p style={{ fontWeight: "lighter" }}>{field.content}</p>
+                    </Box>
+                  )}
+
+                  <Box sx={{ width: "100%" }}>
+                    <RunTimeModal time={field} />
                   </Box>
                 </Box>
-              );
-            })}
-          </Box>
+              </Box>
+            );
+          })}
+            </Box> 
+            )
+          }
+                
         </Box>
       </Box>
     </Box>
