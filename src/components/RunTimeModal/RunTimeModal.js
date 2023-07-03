@@ -112,6 +112,9 @@ export default function RunTimeModal({ time }) {
       minutes: minutes,
       seconds: seconds,
       mseconds: milliSeconds,
+      firsttag: time.firsttag,
+      secondtag: time.secondtag,
+      thirdtag: time.thirdtag,
     };
 
     updateDocument(documentRef, updatedData);
