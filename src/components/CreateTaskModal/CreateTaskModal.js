@@ -40,6 +40,9 @@ export default function CreateTaskModal() {
     name: "",
     author: "",
     content: "",
+    firsttag:"",
+    secondtag:"",
+    thirdtag:"",
   });
   const [seconds, setSeconds] = useState();
   const [minutes, setMinutes] = useState();
@@ -47,7 +50,7 @@ export default function CreateTaskModal() {
   const [milliSeconds, setMilliSeconds] = useState();
 
   const userData = { ...values, hours, minutes, seconds, milliSeconds };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -67,6 +70,9 @@ export default function CreateTaskModal() {
         minutes: userData.minutes,
         seconds: userData.seconds,
         mseconds: userData.milliSeconds,
+        firsttag: userData.firsttag,
+        secondtag: userData.secondtag,
+        thirdtag: userData.thirdtag,
       });
       handleClose();
     }
@@ -76,8 +82,8 @@ export default function CreateTaskModal() {
   return (
     <div>
       <Button onClick={handleOpen} sx={{ color: "#551a8b", display: "flex" }}>
-        <CreateIcon />
-        Create Field
+        <CreateIcon  fontSize="small"/>
+        <p style={{ marginLeft:"5px"}}>Create Task</p>
       </Button>
 
       <Modal
@@ -132,6 +138,52 @@ export default function CreateTaskModal() {
                   placeholder="Enter Field Name..."
                 />
                 <br />
+                <label className="label">Tags</label>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    color: "white",
+                    marginTop:"-10px",
+                  }}
+                >
+                  <p>#1</p>
+                  <input
+                    onChange={(e) =>
+                      setValues((prev) => ({ ...prev, firsttag: e.target.value }))
+                    }
+                    style={{ width: "70px"}}
+                    className="input"
+                    type="name"
+                    name="name"
+                    placeholder="#React"
+                  />
+                  <p>#2</p>
+                  <input
+                    onChange={(e) =>
+                      setValues((prev) => ({ ...prev, secondtag: e.target.value }))
+                    }
+                    style={{ width: "70px"}}
+                    className="input"
+                    type="name"
+                    name="name"
+                    placeholder="#History"
+                  />
+                  <p>#3</p>
+                  <input
+                    onChange={(e) =>
+                      setValues((prev) => ({ ...prev, thirdtag: e.target.value }))
+                    }
+                    style={{ width: "70px"}}
+                    className="input"
+                    type="name"
+                    name="name"
+                    placeholder="#Bathing"
+                  />
+                </Box>
+                <br />
                 <label className="label">Time</label>
                 <Box
                   sx={{
@@ -140,6 +192,7 @@ export default function CreateTaskModal() {
                     justifyContent: "space-between",
                     width: "100%",
                     color: "white",
+                    marginTop:"-10px",
                   }}
                 >
                   <p>H:</p>
@@ -155,6 +208,7 @@ export default function CreateTaskModal() {
                   <p>M:</p>
                   <input
                     max={59}
+                    maxLength={2}
                     onChange={(e) => setMinutes(e.target.value)}
                     style={{ width: "40px", marginLeft: "-8px" }}
                     className="input"
@@ -165,6 +219,7 @@ export default function CreateTaskModal() {
                   <p>S:</p>
                   <input
                     max={59}
+                    maxLength={2}
                     onChange={(e) => setSeconds(e.target.value)}
                     style={{ width: "40px", marginLeft: "-8px" }}
                     className="input"
@@ -174,6 +229,7 @@ export default function CreateTaskModal() {
                   />
                   <p>MS:</p>
                   <input
+                    maxLength={2}
                     max={59}
                     onChange={(e) => setMilliSeconds(e.target.value)}
                     style={{ width: "40px", marginLeft: "-8px" }}

@@ -38,14 +38,16 @@ export default function DeleteModal(field) {
   const id = TaskId.id
 
   const deleteBooking = async () => {
+    setLoading(true)
     await deleteDoc(doc(db, `${user.uid}`,id))
+    setLoading(false)
     handleClose();
   }
 
   return (
     <div>
       <p onClick={handleOpen}>
-        Delete
+        { loading ? "Deleting..." : "Delete"}
       </p>
 
       <Modal

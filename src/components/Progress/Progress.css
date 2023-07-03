@@ -23,16 +23,13 @@
   }
   
   .progressTasksFieldContainer{
-    width: 95%;
+    width: 78%;
     height: 100vh;
-    margin-top: 20px;
     display: flex;
-    justify-content: flex-start;
+    align-items: center;
     padding: 20px;
-    flex-wrap: wrap;
     flex-direction: column;
-    padding-bottom: 30px;
-    overflow-y: auto;
+   overflow-y: auto;
   }
   
   .progressFieldCard{
@@ -83,4 +80,23 @@
     border: 1px solid #551a8b;
     padding: 10px;
     padding-right: 10px;
+  }
+
+  .SearchInput{
+    width: 80%;
+    margin-top: 20px;
+  }
+
+  .progressInput{
+    width: 100%;
+    border: none;
+    height: 30px;
+    background-color: black;
+    color: #551a8b;
+    padding-left: 10px;
+  }
+
+  ::placeholder {
+    color: #551a8b;
+    opacity: 0.8;
   }
