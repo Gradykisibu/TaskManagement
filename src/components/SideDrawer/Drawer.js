@@ -5,20 +5,21 @@ import { AuthContext } from "../context/AuthContext";
 
 const Drawer = () => {
   const { user, createField } = useContext(AuthContext);
-  const [count, setCount] = useState(0);
   const initial = user?.email;
 
   return (
     <Box className="DrawerContainer">
       <Box className="initial">
         <Box  className="initialBorder">
-      {initial[0]}
+       {initial[0]}
         </Box>
       </Box>
       <Box className="initalName">{initial}</Box>
       <Box className="Tasks">
-        <p>Created Tasks : {createField.length}</p>
-        <p>Task in Progress: {count}</p>
+        <h2 style={{
+          marginBottom:"-10px"
+        }}>Created Tasks</h2>
+        <h1>{createField.length}</h1>
       </Box>
     </Box>
   );
